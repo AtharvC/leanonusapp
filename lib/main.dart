@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:leanonusapp/Pages/User_Page.dart';
 
 void main() {
   runApp(const MainPage());
@@ -13,30 +14,32 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int currentIndex = 0;
   final screens = [
+    //'Home' Tab
     Center(
       child: TextButton(
         onPressed: () {},
         child: const Text('Home'),
       ),
     ),
-    Center(
-      child: TextButton(
-        onPressed: () {},
-        child: const Text('My Chapter'),
-      ),
-    ),
+
+    //'Requests' Tab
     Center(
       child: TextButton(
         onPressed: () {},
         child: const Text('Requests'),
       ),
     ),
+
+    //'My Chapter' Tab
     Center(
       child: TextButton(
         onPressed: () {},
-        child: const Text('Account'),
+        child: const Text('My Chapter'),
       ),
     ),
+
+    //'Account' Tab
+    const UserPage(),
   ];
 
   // This widget is the root of your application.
@@ -48,33 +51,35 @@ class _MainPageState extends State<MainPage> {
           title: const Text('Lean On Us App'),
         ),
         body: screens[currentIndex],
-        bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Colors.blueAccent,
-          currentIndex: currentIndex,
-          onTap: (index) => setState(() => currentIndex = index),
-          items: const [
-            BottomNavigationBarItem(
+        bottomNavigationBar: NavigationBarTheme(
+          data: const NavigationBarThemeData(
+            height: 69,
+            backgroundColor: Colors.blue,
+          ),
+          child: NavigationBar(
+            selectedIndex: currentIndex,
+            onDestinationSelected: (currentIndex) =>
+              setState(() => this.currentIndex = currentIndex),
+            destinations: const [
+              NavigationDestination(
                 icon: Icon(Icons.home),
                 label: 'Home',
-                backgroundColor: Colors.blue,
-            ),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.business),
-                label: 'My Chapter',
-                backgroundColor: Colors.blue,
-            ),
-            BottomNavigationBarItem(
+              ),
+              NavigationDestination(
                 icon: Icon(Icons.location_on_sharp),
                 label: 'Requests',
-                backgroundColor: Colors.blue,
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle_rounded),
-              label: 'Account',
-              backgroundColor: Colors.blue,
-            ),
-          ],
-        ),
+              ),
+              NavigationDestination(
+                icon: Icon(Icons.business),
+                label: 'My Chapter',
+              ),
+              NavigationDestination(
+                icon: Icon(Icons.account_circle_rounded),
+                label: 'Account',
+              ),
+            ],
+          ),
+        )
       ),
     );
   }

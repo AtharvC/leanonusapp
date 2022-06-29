@@ -54,7 +54,7 @@ class _MainPageState extends State<MainPage> {
         bottomNavigationBar: NavigationBarTheme(
           data: const NavigationBarThemeData(
             height: 69,
-            backgroundColor: Colors.blue,
+            backgroundColor: Colors.white,
           ),
           child: NavigationBar(
             selectedIndex: currentIndex,
@@ -62,19 +62,19 @@ class _MainPageState extends State<MainPage> {
               setState(() => this.currentIndex = currentIndex),
             destinations: const [
               NavigationDestination(
-                icon: Icon(Icons.home),
+                icon: Icon(Icons.home, color: Colors.blue),
                 label: 'Home',
               ),
               NavigationDestination(
-                icon: Icon(Icons.location_on_sharp),
+                icon: Icon(Icons.location_on_sharp, color: Colors.blue),
                 label: 'Requests',
               ),
               NavigationDestination(
-                icon: Icon(Icons.business),
+                icon: Icon(Icons.business, color: Colors.blue),
                 label: 'My Chapter',
               ),
               NavigationDestination(
-                icon: Icon(Icons.account_circle_rounded),
+                icon: Icon(Icons.account_circle_rounded, color: Colors.blue),
                 label: 'Account',
               ),
             ],

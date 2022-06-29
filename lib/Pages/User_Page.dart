@@ -23,7 +23,9 @@ class UserPage extends StatelessWidget
               ),
               userInfo(),
             ],
-          )
+          ),
+          statInfo('Current Center', 'LoU New York'),
+          statInfo('Number of Requests', '42069')
         ],
       )
     );
@@ -43,12 +45,34 @@ class UserPage extends StatelessWidget
                 'Random Person',
               style: TextStyle(
                 fontSize: 30,
-                color: Colors.white,
+                color: Colors.white ,
               ),
             ),
           ),
 
         ]
+    ),
+  );
+
+  Widget statInfo(String label, info) => Container(
+    padding: const EdgeInsets.all(32),
+    child:  Row(
+      children: [
+        Expanded(child: Text(
+            label+':',
+          style: const TextStyle(
+            fontSize: 16,
+          ),
+          )
+        ),
+        Text(
+            info,
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
     ),
   );
 }

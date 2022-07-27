@@ -25,7 +25,7 @@ class UserPage extends StatelessWidget
             ],
           ),
           statInfo('Current Center', 'LoU New York'),
-          statInfo('Number of Requests', '42069')
+          statInfo('Number of Requests', '42069'),
         ],
       )
     );

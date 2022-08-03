@@ -5,9 +5,20 @@ void main()
   runApp(const HomePage());
 }
 
-class HomePage extends StatelessWidget
+class HomePage extends StatefulWidget
 {
   const HomePage({Key? key}) : super(key: key);
+
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) => Column(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: <Widget>[
@@ -24,11 +35,10 @@ class HomePage extends StatelessWidget
           style: TextStyle(
               fontSize: 30, color: Colors.black, fontWeight: FontWeight.bold),
         )),
-    Container(
-        child: const Text(
-          "Over 30 registered chapters across the US, Mexico, and Canada ",
-          style: TextStyle(
-              fontSize: 30, color: Colors.black, fontWeight: FontWeight.bold),
-        )),
+    const Text(
+      "Over 30 registered chapters across the US, Mexico, and Canada ",
+      style: TextStyle(
+          fontSize: 30, color: Colors.black, fontWeight: FontWeight.bold),
+    ),
   ]);
 }

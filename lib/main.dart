@@ -3,6 +3,8 @@ import 'package:leanonusapp/Pages/Home_Page.dart';
 import 'package:leanonusapp/Pages/Requests_Page.dart';
 import 'package:leanonusapp/Pages/User_Page.dart';
 import 'package:leanonusapp/db/setupDatabase.dart';
+
+import 'Pages/Chapter_Page.dart';
 MyDatabase? database;
 
 void main() {
@@ -24,15 +26,10 @@ class _MainPageState extends State<MainPage> {
     const HomePage(),
 
     //'Requests' Tab
-    RequestPage(),
+    const RequestPage(),
 
     //'My Chapter' Tab
-    Center(
-      child: TextButton(
-        onPressed: () {},
-        child: const Text('My Chapter'),
-      ),
-    ),
+    const ChapterPage(),
 
     //'Account' Tab
     const UserPage(),

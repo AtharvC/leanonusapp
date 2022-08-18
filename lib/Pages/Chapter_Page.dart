@@ -1,66 +1,54 @@
 import 'package:flutter/material.dart';
-import 'package:leanonusapp/db/setupDatabase.dart';
 
 void main() {
-  runApp(const ChapterPage());
+  runApp(const ChapterPage(
+    chapterId: 2,
+  ));
 }
 
 class ChapterPage extends StatefulWidget {
-  const ChapterPage({Key? key}) : super(key: key);
+  final int? chapterId;
+  const ChapterPage({Key? key, this.chapterId}) : super(key: key);
 
   @override
   State<ChapterPage> createState() => _ChapterPageState();
 }
 
 class _ChapterPageState extends State<ChapterPage> {
-  late MyDatabase _db;
   @override
   void initState() {
     super.initState();
-
-    _db = MyDatabase();
   }
 
   @override
   Widget build(BuildContext context) {
+    widget.chapterId;
+    print('Passed Id to the Widget: ${widget.chapterId}');
+
+    Text text;
+    if (widget.chapterId == 1) {
+      text = const Text('Chapter Page for Chapter President');
+    } else if (widget.chapterId == 2) {
+      text = const Text('Facility Page for Senior Care Facility');
+    } else {
+      text = const Text("null");
+      return Column(
+        children: [
+          const Text('Wrong route entered. Please try again'),
+          Text(widget.chapterId.toString()),
+        ],
+      );
+    }
+
     return Scaffold(
-      body: FutureBuilder<List<User>>(
-        future: _db.getUsers(),
-        builder: (context, snapshot) {
-          final List<User>? users = snapshot.data;
-
-          if(snapshot.connectionState != ConnectionState.done) {
-            return const Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-
-          if(snapshot.hasError) {
-            return Center(
-              child: Text(snapshot.error.toString()),
-            );
-          }
-
-          if(users != null) {
-            return ListView.builder(
-                itemCount: users.length,
-                itemBuilder: (context, index) {
-                  final user = users[index];
-                  return Card(
-                    child: Column(
-                      children: [
-                        Text(user.id.toString()),
-                        Text(user.name.toString()),
-                        Text(user.category.toString()),
-                      ],
-                    ),
-                  );
-            });
-          }
-
-          return const Text('No data found');
-        },
-      ),
+        body: Center(
+            child: Column(
+              children: [
+                text,
+                Text(widget.chapterId.toString()),
+              ],
+            )
+        )
     );
   }
 }

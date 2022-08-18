@@ -35,7 +35,7 @@ class UserPage extends StatelessWidget
     child: Column(
         children: const [
           CircleAvatar(
-            backgroundImage: NetworkImage('https://via.placeholder.com/100'),
+            backgroundImage: NetworkImage('https://picsum.photos/200'),
             backgroundColor: Colors.transparent,
             radius: 100,
           ),

@@ -16,63 +16,86 @@ class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
 
   @override
-  _MainPageState createState() => _MainPageState();
+  MainPageState createState() => MainPageState();
 }
 
-class _MainPageState extends State<MainPage> {
-  int currentIndex = 0;
-  final screens = [
-    //'Home' Tab
-    const HomePage(),
+class MainPageState extends State<MainPage> {
+  late MyDatabase _db;
+  late User _account;
+  late int _currentIndex = 0;
 
-    //'Requests' Tab
-    const RequestPage(),
+  @override
+  initState() {
+    _db = MyDatabase();
+    getUser(2, _db).then((value) async {
+      _account = value;
+      print("Account name: ${_account.name} \n Account ID: ${_account.id}");
+    });
+    super.initState();
+  }
 
-    //'My Chapter' Tab
-    const ChapterPage(),
+  Widget getPage(int index) {
+    switch (index){
+      case 0:
+        return const HomePage();
+      case 1:
+        return const RequestPage();
+      case 2:
+        print("Case 2 called \n Account name: ${_account.name} \n Account ID: ${_account.id}");
+        return ChapterPage(chapterId: _account.id,);
+      case 3:
+        return const UserPage();
+      default:
+        return const HomePage();
+    }
+  }
 
-    //'Account' Tab
-    const UserPage(),
-  ];
+  Future<User> getUser(int id, MyDatabase database) async{
+    _account = await database.getUser(id);
+    //_account;
+    return _account;
+  }
+
+  onTabTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-          appBar: AppBar(
-            title: const Text('Lean On Us App'),
-          ),
-          body: screens[currentIndex],
-          bottomNavigationBar: NavigationBarTheme(
-            data: const NavigationBarThemeData(
-              height: 69,
-              backgroundColor: Colors.white,
+        appBar: AppBar(
+          title: const Text('Lean On Us App'),
+        ),
+        body: getPage(_currentIndex),
+        bottomNavigationBar: BottomNavigationBar(
+          fixedColor: Colors.black,
+          items: const [
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home, color: Colors.blue),
+              label: 'Home',
             ),
-            child: NavigationBar(
-              selectedIndex: currentIndex,
-              onDestinationSelected: (currentIndex) =>
-                  setState(() => this.currentIndex = currentIndex),
-              destinations: const [
-                NavigationDestination(
-                  icon: Icon(Icons.home, color: Colors.blue),
-                  label: 'Home',
-                ),
-                NavigationDestination(
-                  icon: Icon(Icons.location_on_sharp, color: Colors.blue),
-                  label: 'Requests',
-                ),
-                NavigationDestination(
-                  icon: Icon(Icons.business, color: Colors.blue),
-                  label: 'My Chapter',
-                ),
-                NavigationDestination(
-                  icon: Icon(Icons.account_circle_rounded, color: Colors.blue),
-                  label: 'Account',
-                ),
-              ],
+            BottomNavigationBarItem(
+              icon: Icon(Icons.location_on_sharp, color: Colors.blue),
+              label: 'Requests',
             ),
-          )),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.business, color: Colors.blue),
+              label: 'My Chapter',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.account_circle_rounded, color: Colors.blue),
+              label: 'Account',
+            ),
+          ],
+          onTap: onTabTapped,
+          currentIndex: _currentIndex,
+        ),
+      ),
+
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:leanonusapp/db/setupDatabase.dart';
 import 'package:drift/drift.dart' as drift;
+import 'package:leanonusapp/globals.dart' as globals;
 import '../widgets/custom_text_form_field.dart';
 
 void main()
@@ -24,15 +25,7 @@ class _RequestPageState extends State<RequestPage> {
   void initState() {
     super.initState();
 
-    _db = MyDatabase();
-  }
-
-  @override
-  void dispose() {
-    _db.close();
-    _nameController.dispose();
-    _categoryController.dispose();
-    super.dispose();
+    _db = globals.database;
   }
 
   @override
@@ -61,14 +54,25 @@ class _RequestPageState extends State<RequestPage> {
       name: drift.Value(_nameController.text),
       category: drift.Value(int.parse(_categoryController.text)),
     );
-    _db.insertUser(entity).then((value) => ScaffoldMessenger.of(context).showMaterialBanner(
+    _db.insertUser(entity).then((value) {
+      getUser(1, _db).then((values) {
+        globals.account = values;
+        print("Account name: ${globals.account.name} \n Category: ${globals.account.category}");
+      });
+      return ScaffoldMessenger.of(context).showMaterialBanner(
         MaterialBanner(content: Text('New user inserted: $value'), actions: [
           TextButton(
               onPressed: () => ScaffoldMessenger.of(context).hideCurrentMaterialBanner(),
               child: const Text('Close'))
         ],
-        )
-    ),
+        ));
+      },
     );
+  }
+
+  getUser(int id, MyDatabase db) async {
+    globals.account = await db.getUser(id);
+    //globals.account;
+    return globals.account;
   }
 }

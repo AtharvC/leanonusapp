@@ -3,12 +3,11 @@ import 'package:leanonusapp/Pages/Home_Page.dart';
 import 'package:leanonusapp/Pages/Requests_Page.dart';
 import 'package:leanonusapp/Pages/User_Page.dart';
 import 'package:leanonusapp/db/setupDatabase.dart';
-
+import 'package:leanonusapp/globals.dart' as globals;
 import 'Pages/Chapter_Page.dart';
 MyDatabase? database;
 
 void main() {
-  database = MyDatabase();
   runApp(const MainPage());
 }
 
@@ -26,8 +25,8 @@ class MainPageState extends State<MainPage> {
 
   @override
   initState() {
-    _db = MyDatabase();
-    getUser(2, _db).then((value) async {
+    _db = globals.database;
+    getUser(1, _db).then((value) {
       _account = value;
       print("Account name: ${_account.name} \n Account ID: ${_account.id}");
     });
@@ -41,8 +40,8 @@ class MainPageState extends State<MainPage> {
       case 1:
         return const RequestPage();
       case 2:
-        print("Case 2 called \n Account name: ${_account.name} \n Account ID: ${_account.id}");
-        return ChapterPage(chapterId: _account.id,);
+        print("Case 2 called \n Account name: ${globals.account.id} \n Account ID: ${globals.account.id}");
+        return ChapterPage();
       case 3:
         return const UserPage();
       default:

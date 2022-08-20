@@ -10,7 +10,7 @@ class RouteGenerator {
       case '/':
         return MaterialPageRoute(builder: (_) => const HomePage());
       case '/chapter_page':
-        return MaterialPageRoute(builder: (_) => const ChapterPage(chapterId: 1));
+        return MaterialPageRoute(builder: (_) => const ChapterPage());
       case '/requests_page':
         return MaterialPageRoute(builder: (_) => const RequestPage());
       case '/user_page':

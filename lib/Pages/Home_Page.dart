@@ -52,7 +52,7 @@ class _HomePageState extends State<HomePage> {
                 child: Text(
               label,
               style: const TextStyle(
-                fontSize: 20,
+                fontSize: 25,
               ),
             )),
           ],

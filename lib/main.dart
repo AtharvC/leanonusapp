@@ -5,6 +5,7 @@ import 'package:leanonusapp/Pages/User_Page.dart';
 import 'package:leanonusapp/db/setupDatabase.dart';
 import 'package:leanonusapp/globals.dart' as globals;
 import 'Pages/Chapter_Page.dart';
+
 MyDatabase? database;
 
 void main() {
@@ -34,13 +35,14 @@ class MainPageState extends State<MainPage> {
   }
 
   Widget getPage(int index) {
-    switch (index){
+    switch (index) {
       case 0:
         return const HomePage();
       case 1:
         return const RequestPage();
       case 2:
-        print("Case 2 called \n Account name: ${globals.account.id} \n Account ID: ${globals.account.id}");
+        print(
+            "Case 2 called \n Account name: ${globals.account.id} \n Account ID: ${globals.account.id}");
         return ChapterPage();
       case 3:
         return const UserPage();
@@ -49,7 +51,7 @@ class MainPageState extends State<MainPage> {
     }
   }
 
-  Future<User> getUser(int id, MyDatabase database) async{
+  Future<User> getUser(int id, MyDatabase database) async {
     _account = await database.getUser(id);
     //_account;
     return _account;
@@ -94,7 +96,6 @@ class MainPageState extends State<MainPage> {
           currentIndex: _currentIndex,
         ),
       ),
-
     );
   }
 }

@@ -40,12 +40,10 @@ class _ChapterPageState extends State<ChapterPage> {
     return Scaffold(
         body: Center(
             child: Column(
-              children: [
-                text,
-                Text(globals.account.category.toString()),
-              ],
-            )
-        )
-    );
+      children: [
+        text,
+        Text(globals.account.category.toString()),
+      ],
+    )));
   }
 }

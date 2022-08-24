@@ -4,8 +4,7 @@ import 'package:drift/drift.dart' as drift;
 import 'package:leanonusapp/globals.dart' as globals;
 import '../widgets/custom_text_form_field.dart';
 
-void main()
-{
+void main() {
   runApp(const RequestPage());
 }
 
@@ -30,41 +29,55 @@ class _RequestPageState extends State<RequestPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    body: Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        children: [
-          CustomTextFormField(controller: _nameController, txtLabel: 'Name',),
-          const SizedBox(height: 8.0,),
-          CustomTextFormField(controller: _categoryController, txtLabel: 'Category',),
-          const SizedBox(height: 8.0,),
-          TextButton(
-            onPressed: () {
-              addUser();
-            },
-            child: const Text('Add user to table'),
-          )
-        ],
-      ),
-    ),
-  );
+        body: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              CustomTextFormField(
+                controller: _nameController,
+                txtLabel: 'Name',
+              ),
+              const SizedBox(
+                height: 8.0,
+              ),
+              CustomTextFormField(
+                controller: _categoryController,
+                txtLabel: 'Category',
+              ),
+              const SizedBox(
+                height: 8.0,
+              ),
+              TextButton(
+                onPressed: () {
+                  addUser();
+                },
+                child: const Text('Add user to table'),
+              )
+            ],
+          ),
+        ),
+      );
 
   void addUser() {
     final entity = UsersCompanion(
       name: drift.Value(_nameController.text),
       category: drift.Value(int.parse(_categoryController.text)),
     );
-    _db.insertUser(entity).then((value) {
-      getUser(1, _db).then((values) {
-        globals.account = values;
-        print("Account name: ${globals.account.name} \n Category: ${globals.account.category}");
-      });
-      return ScaffoldMessenger.of(context).showMaterialBanner(
-        MaterialBanner(content: Text('New user inserted: $value'), actions: [
-          TextButton(
-              onPressed: () => ScaffoldMessenger.of(context).hideCurrentMaterialBanner(),
-              child: const Text('Close'))
-        ],
+    _db.insertUser(entity).then(
+      (value) {
+        getUser(1, _db).then((values) {
+          globals.account = values;
+          print(
+              "Account name: ${globals.account.name} \n Category: ${globals.account.category}");
+        });
+        return ScaffoldMessenger.of(context).showMaterialBanner(MaterialBanner(
+          content: Text('New user inserted: $value'),
+          actions: [
+            TextButton(
+                onPressed: () =>
+                    ScaffoldMessenger.of(context).hideCurrentMaterialBanner(),
+                child: const Text('Close'))
+          ],
         ));
       },
     );

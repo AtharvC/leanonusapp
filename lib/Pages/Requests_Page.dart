@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -21,8 +22,10 @@ class RequestPage extends StatefulWidget {
 
 class _RequestPageState extends State<RequestPage> {
   double value = 0;
+  double total = 0;
   late MyDatabase _db;
   final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _requestController = TextEditingController();
   final TextEditingController _categoryController = TextEditingController();
   double progress = 0.0;
   @override
@@ -46,6 +49,8 @@ class _RequestPageState extends State<RequestPage> {
                   backgroundColor: Colors.yellow,
                 ),
               ),
+              CustomTextFormField(
+                  controller: _requestController, txtLabel: 'Total Requests'),
               CustomTextFormField(
                 controller: _nameController,
                 txtLabel: 'Name',
@@ -74,11 +79,20 @@ class _RequestPageState extends State<RequestPage> {
                   }
                 },
                 child: const Text('Request Completed'),
+              ),
+              TextButton(
+                onPressed: () {
+                  AddRequests();
+                },
+                child: const Text('Add Request Total'),
               )
             ],
           ),
         ),
       );
+  void AddRequests() {
+    total = double.parse(_requestController.text);
+  }
 
   void addUser() {
     final entity = UsersCompanion(
@@ -113,7 +127,7 @@ class _RequestPageState extends State<RequestPage> {
 
   void BuildProgress() {
     setState(() {
-      value = value + 0.2;
+      value = value + (1.0 / total);
     });
   }
 }

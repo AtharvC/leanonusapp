@@ -18,32 +18,29 @@ class _ChapterPageState extends State<ChapterPage> {
     super.initState();
   }
 
-  @override
-  Widget build(BuildContext context) {
-    print('Passed Id to the Widget: ${globals.account.id}');
-
-    Text text;
-    if (globals.account.category == 1) {
-      text = const Text('Chapter Page for Chapter President');
-    } else if (globals.account.category == 2) {
-      text = const Text('Facility Page for Senior Care Facility');
-    } else {
-      text = const Text("null");
-      return Column(
+  Widget build(BuildContext context) => Scaffold(
+          body: ListView(
         children: [
-          const Text('Wrong route entered. Please try again'),
-          Text(globals.account.category.toString()),
+          Stack(
+            children: [
+              MainText("Chapter Name"),
+            ],
+          ),
         ],
+      ));
+  Widget MainText(String label) => Container(
+        alignment: Alignment.center,
+        padding: const EdgeInsets.all(32),
+        child: Row(
+          children: [
+            Expanded(
+                child: Text(
+              label,
+              style: const TextStyle(
+                fontSize: 25,
+              ),
+            )),
+          ],
+        ),
       );
-    }
-
-    return Scaffold(
-        body: Center(
-            child: Column(
-      children: [
-        text,
-        Text(globals.account.category.toString()),
-      ],
-    )));
-  }
 }

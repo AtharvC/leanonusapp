@@ -1,3 +1,7 @@
+import 'dart:async';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:leanonusapp/db/setupDatabase.dart';
 import 'package:drift/drift.dart' as drift;
@@ -16,14 +20,14 @@ class RequestPage extends StatefulWidget {
 }
 
 class _RequestPageState extends State<RequestPage> {
+  double value = 0;
   late MyDatabase _db;
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _categoryController = TextEditingController();
-
+  double progress = 0.0;
   @override
   void initState() {
     super.initState();
-
     _db = globals.database;
   }
 
@@ -32,7 +36,16 @@ class _RequestPageState extends State<RequestPage> {
         body: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
+              SizedBox(
+                width: 100,
+                height: 100,
+                child: CircularProgressIndicator(
+                  value: value,
+                  backgroundColor: Colors.yellow,
+                ),
+              ),
               CustomTextFormField(
                 controller: _nameController,
                 txtLabel: 'Name',
@@ -52,6 +65,15 @@ class _RequestPageState extends State<RequestPage> {
                   addUser();
                 },
                 child: const Text('Add user to table'),
+              ),
+              TextButton(
+                onPressed: () {
+                  BuildProgress();
+                  if (value == 1) {
+                    null;
+                  }
+                },
+                child: const Text('Request Completed'),
               )
             ],
           ),
@@ -87,5 +109,11 @@ class _RequestPageState extends State<RequestPage> {
     globals.account = await db.getUser(id);
     //globals.account;
     return globals.account;
+  }
+
+  void BuildProgress() {
+    setState(() {
+      value = value + 0.2;
+    });
   }
 }

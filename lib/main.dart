@@ -70,25 +70,27 @@ class MainPageState extends State<MainPage> {
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Lean On Us App'),
+          backgroundColor: Color(0xFF4C7FC8),
         ),
         body: getPage(_currentIndex),
         bottomNavigationBar: BottomNavigationBar(
           fixedColor: Colors.black,
           items: const [
             BottomNavigationBarItem(
-              icon: Icon(Icons.home, color: Colors.blue),
+              icon: Icon(Icons.home, color: Color(0xFF4C7FC8)),
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.location_on_sharp, color: Colors.blue),
+              icon: Icon(Icons.location_on_sharp, color: Color(0xFF4C7FC8)),
               label: 'Requests',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.business, color: Colors.blue),
+              icon: Icon(Icons.business, color: Color(0xFF4C7FC8)),
               label: 'My Chapter',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.account_circle_rounded, color: Colors.blue),
+              icon:
+                  Icon(Icons.account_circle_rounded, color: Color(0xFF4C7FC8)),
               label: 'Account',
             ),
           ],

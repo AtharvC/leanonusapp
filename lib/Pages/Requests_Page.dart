@@ -85,7 +85,7 @@ class _RequestPageState extends State<RequestPage> {
                   AddRequests();
                 },
                 child: const Text('Add Request Total'),
-              )
+              ),
             ],
           ),
         ),

@@ -9,7 +9,7 @@ class LeanOnUsApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Table',
+      title: 'Tables',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),

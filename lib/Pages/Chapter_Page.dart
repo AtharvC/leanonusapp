@@ -27,58 +27,113 @@ class ChapterPage extends StatefulWidget {
 }
 
 class _ChapterPageState extends State<ChapterPage> {
+  List<DynamicWidget> listDynamic = [];
+  List<String> data = [];
+
+  Icon floatingIcon = new Icon(Icons.add);
+
+  addDynamic() {
+    if (data.length != 0) {
+      floatingIcon = new Icon(Icons.add);
+
+      data = [];
+      listDynamic = [];
+      print('if');
+    }
+    setState(() {});
+    if (listDynamic.length >= 5) {
+      return;
+    }
+    listDynamic.add(new DynamicWidget());
+  }
+
+  submitData() {
+    floatingIcon = new Icon(Icons.arrow_back);
+    data = [];
+    listDynamic.forEach((widget) => data.add(widget.controller.text));
+    setState(() {});
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(children: <Widget>[
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Text(
-            "Chapter Members",
-            textScaleFactor: 2,
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Table(
-            textDirection: TextDirection.ltr,
-            border: TableBorder.all(width: 1.0, color: Colors.black),
-            children: [
-              TableRow(children: [
-                Text(
-                  "Chapter Member 1",
-                  textScaleFactor: 1.5,
+    Widget result = new Flexible(
+        flex: 1,
+        child: new Card(
+          child: ListView.builder(
+            itemCount: data.length,
+            itemBuilder: (_, index) {
+              return new Padding(
+                padding: new EdgeInsets.all(10.0),
+                child: new Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    new Container(
+                      alignment: Alignment.center,
+                      margin: new EdgeInsets.only(left: 10.0),
+                      child: new Text(
+                        "${index + 1} : ${data[index]}",
+                        textScaleFactor: 1.5,
+                      ),
+                    ),
+                    new Divider()
+                  ],
                 ),
-              ]),
-              TableRow(children: [
-                Text("Chapter Member 2", textScaleFactor: 1.5),
-              ]),
-              TableRow(children: [
-                Text("Chapter Member 3", textScaleFactor: 1.5),
-              ]),
-              TableRow(children: [
-                Text("Chapter Member 4", textScaleFactor: 1.5),
-              ]),
+              );
+            },
+          ),
+        ));
+
+    Widget dynamicTextField = new Flexible(
+      flex: 2,
+      child: new ListView.builder(
+        itemCount: listDynamic.length,
+        itemBuilder: (_, index) => listDynamic[index],
+      ),
+    );
+
+    Widget submitButton = new Container(
+      child: new RaisedButton(
+        onPressed: submitData,
+        child: new Padding(
+          padding: new EdgeInsets.all(16.0),
+          child: new Text('Submit Data'),
+        ),
+      ),
+    );
+
+    return new MaterialApp(
+      home: new Scaffold(
+        body: new Container(
+          margin: new EdgeInsets.all(10.0),
+          child: new Column(
+            children: <Widget>[
+              data.length == 0 ? dynamicTextField : result,
+              data.length == 0 ? submitButton : new Container(),
             ],
           ),
         ),
-      ]),
+        floatingActionButton: new FloatingActionButton(
+          onPressed: addDynamic,
+          child: floatingIcon,
+        ),
+      ),
     );
   }
 }
 
-Widget MainText(String label) => Container(
-      alignment: Alignment.center,
-      padding: const EdgeInsets.all(32),
-      child: Row(
-        children: [
-          Expanded(
-              child: Text(
-            label,
-            style: const TextStyle(
-              fontSize: 25,
-            ),
-          )),
-        ],
+class DynamicWidget extends StatelessWidget {
+  TextEditingController controller = new TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: new EdgeInsets.all(8.0),
+      child: new TextField(
+        controller: controller,
+        decoration: new InputDecoration(hintText: 'Enter Chapter Members'),
+        style: TextStyle(fontSize: 20),
+        textAlign: TextAlign.center,
       ),
     );
+  }
+}

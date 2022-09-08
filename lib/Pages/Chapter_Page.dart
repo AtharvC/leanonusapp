@@ -38,7 +38,6 @@ class _ChapterPageState extends State<ChapterPage> {
 
       data = [];
       listDynamic = [];
-      print('if');
     }
     setState(() {});
     if (listDynamic.length >= 5) {
@@ -71,7 +70,7 @@ class _ChapterPageState extends State<ChapterPage> {
                       alignment: Alignment.center,
                       margin: new EdgeInsets.only(left: 10.0),
                       child: new Text(
-                        "${index + 1} : ${data[index]}",
+                        "${data[index]}",
                         textScaleFactor: 1.5,
                       ),
                     ),

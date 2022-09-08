@@ -51,6 +51,7 @@ class _HomePageState extends State<HomePage> {
             Expanded(
                 child: Text(
               label,
+              textAlign: TextAlign.center,
               style: const TextStyle(
                 fontSize: 25,
               ),

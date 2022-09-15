@@ -4,10 +4,14 @@ import 'package:leanonusapp/Pages/Home_Page.dart';
 import 'package:leanonusapp/Pages/Requests_Page.dart';
 import 'package:leanonusapp/Pages/User_Page.dart';
 
+import '../main.dart';
+
 class RouteGenerator {
   static Route<dynamic> generate(RouteSettings settings) {
     switch (settings.name) {
       case '/':
+        return MaterialPageRoute(builder: (_) => const MainPage());
+      case '/home_page':
         return MaterialPageRoute(builder: (_) => const HomePage());
       case '/chapter_page':
         return MaterialPageRoute(builder: (_) => const ChapterPage());

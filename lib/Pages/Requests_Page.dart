@@ -1,9 +1,6 @@
-import 'dart:async';
-import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter/material.dart';
 import 'package:leanonusapp/db/setupDatabase.dart';
 import 'package:drift/drift.dart' as drift;
 import 'package:leanonusapp/globals.dart' as globals;
@@ -47,14 +44,14 @@ class _RequestPageState extends State<RequestPage> {
                 child: CircularProgressIndicator(
                   value: value,
                   backgroundColor: Colors.yellow,
-                  color: Color(0xFF4C7FC8),
+                  color: const Color(0xFF4C7FC8),
                 ),
               ),
               CustomTextFormField(
                   controller: _requestController, txtLabel: 'Total Requests'),
               TextButton(
                 onPressed: () {
-                  BuildProgress();
+                  buildProgress();
                   if (value == 1) {
                     null;
                   }
@@ -63,7 +60,7 @@ class _RequestPageState extends State<RequestPage> {
               ),
               TextButton(
                 onPressed: () {
-                  AddRequests();
+                  addRequests();
                 },
                 child: const Text('Add Request Total'),
               ),
@@ -71,11 +68,11 @@ class _RequestPageState extends State<RequestPage> {
           ),
         ),
       );
-  void AddRequests() {
+  void addRequests() {
     total = double.parse(_requestController.text);
   }
 
-  void BuildProgress() {
+  void buildProgress() {
     setState(() {
       value = value + (1.0 / total);
     });

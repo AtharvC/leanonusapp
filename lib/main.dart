@@ -21,15 +21,14 @@ class MainPage extends StatefulWidget {
 
 class MainPageState extends State<MainPage> {
   late MyDatabase _db;
-  late User _account;
   late int _currentIndex = 0;
 
   @override
   initState() {
     _db = globals.database;
     getUser(1, _db).then((value) {
-      _account = value;
-      print("Account name: ${_account.name} \n Account ID: ${_account.id}");
+      globals.account = value;
+      print("Account name: ${globals.account.name} \n Account ID: ${globals.account.id}");
     });
     super.initState();
   }
@@ -43,7 +42,7 @@ class MainPageState extends State<MainPage> {
       case 2:
         print(
             "Case 2 called \n Account name: ${globals.account.id} \n Account ID: ${globals.account.id}");
-        return ChapterPage();
+        return const ChapterPage();
       case 3:
         return const UserPage();
       default:
@@ -52,9 +51,9 @@ class MainPageState extends State<MainPage> {
   }
 
   Future<User> getUser(int id, MyDatabase database) async {
-    _account = await database.getUser(id);
-    //_account;
-    return _account;
+    globals.account = await database.getUser(id);
+    //globals.account;
+    return globals.account;
   }
 
   onTabTapped(int index) {

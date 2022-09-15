@@ -6,6 +6,8 @@ void main() {
 }
 
 class LeanOnUsApp extends StatelessWidget {
+  const LeanOnUsApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -13,7 +15,7 @@ class LeanOnUsApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: ChapterPage(),
+      home: const ChapterPage(),
       debugShowCheckedModeBanner: false,
     );
   }
@@ -30,11 +32,11 @@ class _ChapterPageState extends State<ChapterPage> {
   List<DynamicWidget> listDynamic = [];
   List<String> data = [];
 
-  Icon floatingIcon = new Icon(Icons.add);
+  Icon floatingIcon = const Icon(Icons.add);
 
   addDynamic() {
     if (data.length != 0) {
-      floatingIcon = new Icon(Icons.add);
+      floatingIcon = const Icon(Icons.add);
 
       data = [];
       listDynamic = [];
@@ -43,38 +45,40 @@ class _ChapterPageState extends State<ChapterPage> {
     if (listDynamic.length >= 5) {
       return;
     }
-    listDynamic.add(new DynamicWidget());
+    listDynamic.add(DynamicWidget());
   }
 
   submitData() {
-    floatingIcon = new Icon(Icons.arrow_back);
+    floatingIcon = const Icon(Icons.arrow_back);
     data = [];
-    listDynamic.forEach((widget) => data.add(widget.controller.text));
+    for (var widget in listDynamic) {
+      data.add(widget.controller.text);
+    }
     setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-    Widget result = new Flexible(
+    Widget result = Flexible(
         flex: 1,
-        child: new Card(
+        child: Card(
           child: ListView.builder(
             itemCount: data.length,
             itemBuilder: (_, index) {
-              return new Padding(
-                padding: new EdgeInsets.all(10.0),
-                child: new Column(
+              return Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    new Container(
+                    Container(
                       alignment: Alignment.center,
-                      margin: new EdgeInsets.only(left: 10.0),
-                      child: new Text(
-                        "${data[index]}",
+                      margin: const EdgeInsets.only(left: 10.0),
+                      child: Text(
+                        data[index],
                         textScaleFactor: 1.5,
                       ),
                     ),
-                    new Divider()
+                    const Divider()
                   ],
                 ),
               );
@@ -82,36 +86,34 @@ class _ChapterPageState extends State<ChapterPage> {
           ),
         ));
 
-    Widget dynamicTextField = new Flexible(
+    Widget dynamicTextField = Flexible(
       flex: 2,
-      child: new ListView.builder(
+      child: ListView.builder(
         itemCount: listDynamic.length,
         itemBuilder: (_, index) => listDynamic[index],
       ),
     );
 
-    Widget submitButton = new Container(
-      child: new RaisedButton(
-        onPressed: submitData,
-        child: new Padding(
-          padding: new EdgeInsets.all(16.0),
-          child: new Text('Submit Data'),
-        ),
+    Widget submitButton = ElevatedButton(
+      onPressed: submitData,
+      child: const Padding(
+        padding: EdgeInsets.all(16.0),
+        child: Text('Submit Data'),
       ),
     );
 
-    return new MaterialApp(
-      home: new Scaffold(
-        body: new Container(
-          margin: new EdgeInsets.all(10.0),
-          child: new Column(
+    return MaterialApp(
+      home: Scaffold(
+        body: Container(
+          margin: const EdgeInsets.all(10.0),
+          child: Column(
             children: <Widget>[
               data.length == 0 ? dynamicTextField : result,
-              data.length == 0 ? submitButton : new Container(),
+              data.length == 0 ? submitButton : Container(),
             ],
           ),
         ),
-        floatingActionButton: new FloatingActionButton(
+        floatingActionButton: FloatingActionButton(
           onPressed: addDynamic,
           child: floatingIcon,
         ),
@@ -121,16 +123,18 @@ class _ChapterPageState extends State<ChapterPage> {
 }
 
 class DynamicWidget extends StatelessWidget {
-  TextEditingController controller = new TextEditingController();
+  TextEditingController controller = TextEditingController();
+
+  DynamicWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: new EdgeInsets.all(8.0),
-      child: new TextField(
+      margin: const EdgeInsets.all(8.0),
+      child: TextField(
         controller: controller,
-        decoration: new InputDecoration(hintText: 'Enter Chapter Members'),
-        style: TextStyle(fontSize: 20),
+        decoration: const InputDecoration(hintText: 'Enter Chapter Members'),
+        style: const TextStyle(fontSize: 20),
         textAlign: TextAlign.center,
       ),
     );

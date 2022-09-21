@@ -102,23 +102,37 @@ class _ChapterPageState extends State<ChapterPage> {
       ),
     );
 
-    return MaterialApp(
-      home: Scaffold(
-        body: Container(
-          margin: const EdgeInsets.all(10.0),
-          child: Column(
-            children: <Widget>[
-              data.length == 0 ? dynamicTextField : result,
-              data.length == 0 ? submitButton : Container(),
-            ],
+    if(globals.account.category == 1)
+      {
+        return MaterialApp(
+          home: Scaffold(
+            body: Container(
+              margin: const EdgeInsets.all(10.0),
+              child: Column(
+                children: <Widget>[
+                  data.isEmpty ? dynamicTextField : result,
+                  data.isEmpty ? submitButton : Container(),
+                ],
+              ),
+            ),
+            floatingActionButton: FloatingActionButton(
+              onPressed: addDynamic,
+              child: floatingIcon,
+            ),
           ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: addDynamic,
-          child: floatingIcon,
-        ),
-      ),
-    );
+        );
+      }
+    else if (globals.account.category == 2)
+      {
+        return const MaterialApp(
+          //insert code for Senior Care Facility here
+          );
+      }
+    else
+      {
+        return const Center(child: Text('Wrong account type, please try again'),);
+      }
+
   }
 }
 

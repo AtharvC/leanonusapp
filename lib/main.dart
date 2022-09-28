@@ -74,6 +74,7 @@ class MainPageState extends State<MainPage> {
         body: getPage(_currentIndex),
         bottomNavigationBar: BottomNavigationBar(
           fixedColor: Colors.black,
+          backgroundColor: Colors.blueAccent,
           items: const [
             BottomNavigationBarItem(
               icon: Icon(Icons.home, color: Color(0xFF4C7FC8)),
